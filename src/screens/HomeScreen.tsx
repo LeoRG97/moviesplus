@@ -1,27 +1,59 @@
 /* eslint-disable react-native/no-inline-styles */
-import { View, Text, Button } from 'react-native';
-import React, { useEffect } from 'react';
+import { View, ActivityIndicator, useWindowDimensions, ScrollView } from 'react-native';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { movieDB } from '../api/movieDB';
+import { useMovies } from '../hooks/useMovies';
+import MoviePoster from '../components/MoviePoster';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Carousel from 'react-native-snap-carousel';
+import HorizontalSlider from '../components/HorizontalSlider';
 
 const HomeScreen = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const { nowPlaying, popular, topRated, upcoming, isLoading } = useMovies();
+  const { top } = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
 
-  useEffect(() => {
-    movieDB.get('/now_playing')
-      .then((res) => {
-        console.log(res.data);
-      });
-  }, []);
+  if (isLoading) {
+    return (
+      <View style={{ justifyContent: 'center', flex: 1 }}>
+        <ActivityIndicator color="red" size={100} />
+      </View>
+    );
+  }
+
   return (
-    <View>
-      <Text style={{ marginBottom: 30 }}>HomeScreen</Text>
-      <Button
-        title="Lol"
-        onPress={() => navigation.navigate('DetailScreen')}
-      />
-    </View>
+    <ScrollView>
+      <View style={{ marginTop: top + 20 }}>
+        <View style={{
+          height: 470,
+        }}>
+          <Carousel
+            inactiveSlideOpacity={0.9}
+            data={nowPlaying}
+            renderItem={({ item }: any) => <MoviePoster movie={item} />}
+            sliderWidth={width}
+            itemWidth={300}
+          />
+        </View>
+
+        {/* Películas populares */}
+        <HorizontalSlider
+          movies={popular}
+          title="Populares"
+        />
+        <HorizontalSlider
+          movies={topRated}
+          title="Mejor calificadas"
+        />
+        <HorizontalSlider
+          movies={upcoming}
+          title="Próximos estrenos"
+        />
+      </View>
+    </ScrollView>
   );
 };
 
