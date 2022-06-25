@@ -25,7 +25,9 @@ const MoviePoster = ({ movie, height = 440, width = 300 }: Props) => {
       <View style={{
         width,
         height,
-        marginHorizontal: 8,
+        marginHorizontal: 2,
+        paddingBottom: 10,
+        paddingHorizontal: 6,
       }}>
         <View style={styles.imageContainer}>
           <Image
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 10,
     },
-    shadowOpacity: 0.24,
+    shadowOpacity: 0.25,
     shadowRadius: 7,
     elevation: 10,
   },
