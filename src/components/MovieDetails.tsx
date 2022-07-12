@@ -47,7 +47,7 @@ const MovieDetails = ({ movieFull, cast }: Props) => {
           renderItem={({ item }) => <CastItem actor={item} />}
           style={{
             marginTop: 10,
-            height: 90,
+            height: 200,
           }}
         />
       </View>

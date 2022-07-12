@@ -46,11 +46,13 @@ const styles = StyleSheet.create({
     elevation: 10,
     marginLeft: 20,
     paddingRight: 10,
-    height: 60,
+    height: 150,
   },
   actorInfo: {
     marginLeft: 20,
-    marginTop: 5,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   actorName: {
     fontSize: 18,
@@ -61,8 +63,8 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   profileImg: {
-    width: 60,
-    height: 60,
+    width: 100,
+    height: 150,
     borderRadius: 10,
   },
 });
