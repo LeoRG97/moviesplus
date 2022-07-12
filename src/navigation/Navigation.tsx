@@ -12,7 +12,7 @@ function Navigation() {
       screenOptions={{
         headerShown: false,
         contentStyle: {
-          backgroundColor: '#fff',
+          // backgroundColor: '#fff',
         },
       }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />

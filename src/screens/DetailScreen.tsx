@@ -1,16 +1,24 @@
-import { View, Image, StyleSheet, Dimensions, ScrollView, Text } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, ScrollView, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/types';
+import { useMovieDetails } from '../hooks/useMovieDetails';
+import MovieDetails from '../components/MovieDetails';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Props extends NativeStackScreenProps<RootStackParamList, 'DetailScreen'> { }
 
 const screenHeight = Dimensions.get('screen').height;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DetailScreen = ({ navigation, route }: Props) => {
   const movie = route.params;
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+  const { movieFull, cast, isLoading } = useMovieDetails(movie.id);
+
+  const goBack = () => {
+    navigation.pop();
+  };
 
   return (
     <ScrollView>
@@ -26,6 +34,26 @@ const DetailScreen = ({ navigation, route }: Props) => {
         <Text style={styles.subtitle}>{movie.original_title}</Text>
         <Text style={styles.title}>{movie.title}</Text>
       </View>
+
+      {isLoading ?
+        <ActivityIndicator
+          size={35}
+          color="gray"
+          style={styles.loading} />
+        : <MovieDetails
+          movieFull={movieFull!}
+          cast={cast}
+        />
+      }
+
+      <TouchableOpacity style={styles.backButton} onPress={goBack}>
+        <Icon
+          color="white"
+          name="arrow-back-outline"
+          size={50}
+        />
+      </TouchableOpacity>
+
     </ScrollView>
   );
 };
@@ -65,6 +93,16 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     opacity: 0.8,
+  },
+  loading: {
+    marginTop: 20,
+  },
+  backButton: {
+    position: 'absolute',
+    zIndex: 999,
+    elevation: 9,
+    top: 30,
+    left: 10,
   },
 });
 
