@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Movie } from '../interfaces/movieInterface';
