@@ -14,7 +14,7 @@ const DetailScreen = ({ navigation, route }: Props) => {
   const movie = route.params;
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
-  const { movieFull, cast, isLoading } = useMovieDetails(movie.id);
+  const { movieFull, cast, isLoading, directors } = useMovieDetails(movie.id);
 
   const goBack = () => {
     navigation.pop();
@@ -43,6 +43,7 @@ const DetailScreen = ({ navigation, route }: Props) => {
         : <MovieDetails
           movieFull={movieFull!}
           cast={cast}
+          directors={directors}
         />
       }
 

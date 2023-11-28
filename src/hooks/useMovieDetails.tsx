@@ -7,6 +7,7 @@ interface MovieDetails {
   isLoading: boolean;
   cast: Cast[]
   movieFull?: MovieFull,
+  directors: Cast[],
 }
 
 export const useMovieDetails = (movieId: number) => {
@@ -14,6 +15,7 @@ export const useMovieDetails = (movieId: number) => {
     isLoading: true,
     movieFull: undefined,
     cast: [],
+    directors: [],
   });
 
   useEffect(() => {
@@ -26,10 +28,13 @@ export const useMovieDetails = (movieId: number) => {
         movieCastPromise,
       ]);
 
+      const directors = movieCastResponse.data.crew.filter((member) => member.job === 'Director');
+
       setState({
         isLoading: false,
         movieFull: movieDetailsResponse.data,
         cast: movieCastResponse.data.cast,
+        directors,
       });
     };
     getMovieDetails();

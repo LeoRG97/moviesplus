@@ -28,6 +28,7 @@ const HomeScreen = () => {
     if (nowPlaying.length > 0) {
       getPosterColors(0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nowPlaying]);
 
   if (isLoading) {

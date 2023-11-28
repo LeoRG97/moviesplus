@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { MovieFull } from '../interfaces/movieInterface';
@@ -11,9 +10,11 @@ import CastItem from './CastItem';
 interface Props {
   movieFull: MovieFull;
   cast: Cast[];
+  directors: Cast[];
 }
 
-const MovieDetails = ({ movieFull, cast }: Props) => {
+const MovieDetails = ({ movieFull, cast, directors }: Props) => {
+  console.log({ movieFull, cast });
   return (
     <>
       <View style={{ marginHorizontal: 20 }}>
@@ -37,6 +38,22 @@ const MovieDetails = ({ movieFull, cast }: Props) => {
 
       </View>
 
+      <View style={{ marginTop: 10 }}>
+        <Text style={{ ...styles.title, marginHorizontal: 20 }}>Dirección</Text>
+        <FlatList
+          data={directors}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <CastItem actor={item} />}
+          style={{
+            marginTop: 10,
+            height: 180,
+          }}
+        />
+      </View>
+
+
       <View style={{ marginTop: 10, marginBottom: 100 }}>
         <Text style={{ ...styles.title, marginHorizontal: 20 }}>Actores</Text>
         <FlatList
@@ -47,7 +64,7 @@ const MovieDetails = ({ movieFull, cast }: Props) => {
           renderItem={({ item }) => <CastItem actor={item} />}
           style={{
             marginTop: 10,
-            height: 200,
+            height: 180,
           }}
         />
       </View>

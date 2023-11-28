@@ -19,10 +19,9 @@ const GradientBackground = ({ children }: Props) => {
       setPreviousColors(colors);
       fadeOut(100);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colors]);
 
-
-  console.log(prevColors);
 
   return (
     <View style={{ flex: 1 }}>
